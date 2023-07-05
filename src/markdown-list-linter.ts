@@ -9,13 +9,9 @@ import {
 } from "./utility";
 import { IMarkdownListLinter, IMarkdownListLinterErrors } from "./interface";
 
-const errors: IMarkdownListLinterErrors[] | undefined = [];
+const errors: IMarkdownListLinterErrors[] = [];
 
-// './test.md'
-
-
-
-export const runMarkdownListLinter = (
+export const lintMarkdownList = (
   filename: string
 ): IMarkdownListLinter => {
   const data = fs.readFileSync(filename, "utf8");

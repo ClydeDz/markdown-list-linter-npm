@@ -4,7 +4,12 @@ export interface IMarkdownListLinter {
   }
   
 export interface IMarkdownListLinterErrors {
-    type: string;
+    type: MarkdownListType;
     message: string;
     details: string[][];
+}
+
+export enum MarkdownListType {
+  Headings = "HEADINGS",
+  ListItems = "LIST_ITEMS"
 }

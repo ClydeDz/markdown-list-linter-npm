@@ -1,13 +1,13 @@
 # Animals
 A simple list of correctly ordered animals
 
-## B
+## C
 - Aardvark
 - Aardwolf
 - African Buffalo
 - African Elephant
 
-## C
+## B
 - Baboon
 - Bactrian Camel
 - Badger
@@ -19,7 +19,7 @@ A simple list of correctly ordered animals
 - Canid
 - Canidae
 
-## E
+## A
 - Damselfly
 - Deer
 - Dingo

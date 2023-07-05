@@ -1,6 +1,8 @@
-import { IMarkdownListLinterErrors } from "./interface";
-
+import { IMarkdownListLinterErrors, MarkdownListType } from "./interface";
 var diff = require('json-differ');
+
+const SECTION_SEPARATOR = '&&SECTION_SEPARATOR&&';
+const ITEM_SEPARATOR = '&&ITEM_SEPARATOR&&';
 
 export const getAllHeadings = (data:any) => {
     const result = data.reduce((accumulator:any, current:any) => {
@@ -48,18 +50,18 @@ export const formatHeadingErrors = (errors:any): IMarkdownListLinterErrors => {
             const lastElement = accumulator[accumulator.length-2]
             // @ts-ignore
             if(curr - lastElement > 1) {
-                builder += '&'
+                builder += SECTION_SEPARATOR
             }
         }
-        builder += jsonErrors[curr] += ','
+        builder += jsonErrors[curr] += ITEM_SEPARATOR
         return accumulator
     }, [])    
 
     return {
-        type: "Headings",
+        type: MarkdownListType.Headings,
         message: "Please correct the alphabetical order for these heading items",
-        details: builder.split('&').map(function(x){
-            return x.slice(0,-1).split(",")
+        details: builder.split(SECTION_SEPARATOR).map(function(x){
+            return x.slice(0,-1).split(ITEM_SEPARATOR)
         })
     };
 }
@@ -77,18 +79,18 @@ export const formatListItemErrors = (errors:any): IMarkdownListLinterErrors => {
             const lastElement = accumulator[accumulator.length-2]
             // @ts-ignore
             if(curr - lastElement > 1) {
-                builder += '&'
+                builder += SECTION_SEPARATOR
             }
         }
-        builder += jsonErrors[curr] += ','
+        builder += jsonErrors[curr] += ITEM_SEPARATOR
         return accumulator
     }, [])    
     
     return {
-        type: "List items",
+        type: MarkdownListType.ListItems,
         message: "Please correct the alphabetical order for these list items",
-        details: builder.split('&').map(function(x){
-            return x.slice(0,-1).split(",")
+        details: builder.split(SECTION_SEPARATOR).map(function(x){
+            return x.slice(0,-1).split(ITEM_SEPARATOR)
         })
     };
 }

@@ -1,7 +1,7 @@
 {
     "name": "markdown-list-linter",
     "version": "0.0.1",
-    "description": "Tbc",
+    "description": "Lint markdown lists to warn when list items are not alphabetically ordered",
     "main": "./lib/markdown-list-linter.js",
     "types": "./lib/markdown-list-linter.d.ts",
     "scripts": {

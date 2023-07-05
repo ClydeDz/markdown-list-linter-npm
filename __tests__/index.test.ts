@@ -1,15 +1,15 @@
-import {runMarkdownListLinter} from '../src/markdown-list-linter'
+import {lintMarkdownList} from '../src/markdown-list-linter'
 import { Files } from './files';
 
 describe("lint", () => {
     it("alphabets supplied", () => {
-        const actual = runMarkdownListLinter(Files.SimpleLists.Simple)
+        const actual = lintMarkdownList(Files.SimpleLists.Simple)
         expect(actual).toMatchObject({ summary: 'No errors found'});
     });  
 
-    it("alphabets supplied", () => {
+    it("alphabets suppliedsssss", () => {
         var expected = [['Please correct the alphabetical order for these heading items:', "----------", "C", "B"]]
-        const actual = runMarkdownListLinter(Files.SimpleLists.Simple)
+        const actual = lintMarkdownList(Files.SimpleLists.Reorder)
         console.log(actual)       
         expect(true).toBeTruthy()
         //expect(actual).toMatchObject(expected);
