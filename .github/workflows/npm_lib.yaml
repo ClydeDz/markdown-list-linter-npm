@@ -43,5 +43,3 @@ jobs:
     - if: ${{ steps.publish.outputs.type }}
       run: |
         echo "Version changed!"
-  
-      
