@@ -9,7 +9,7 @@ import {
 import { IMarkdownListLinter, IMarkdownListLinterErrors, MarkdownListType } from "./interface";
 
 /**
- * Lints the markdown list
+ * Lint markdown lists to warn when list items are not alphabetically ordered
  * @param {string} filename The full path to the markdown file
  * @returns {IMarkdownListLinter} A summary of the lint process and optionally an error objec t if a lint issue exists
  */
