@@ -1,96 +1,76 @@
-import { IMarkdownListLinterErrors, MarkdownListType } from "./interface";
-var diff = require('json-differ');
+import { IMarkdownListLinterErrors, MarkdownListType } from "./interface"
+var diff = require('json-differ')
 
-const SECTION_SEPARATOR = '&&SECTION_SEPARATOR&&';
-const ITEM_SEPARATOR = '&&ITEM_SEPARATOR&&';
+const SECTION_SEPARATOR = '&&SECTION_SEPARATOR&&'
+const ITEM_SEPARATOR = '&&ITEM_SEPARATOR&&'
+const DIFF_CHECK_NO_CHANGE = 'false'
 
-export const getAllHeadings = (data:any) => {
-    const result = data.reduce((accumulator:any, current:any) => {
-        const [title] = current.slice(1);
-        // @ts-ignore
-        const added = accumulator.find(e => e === title);
-        !added ? accumulator.push(title) : false;        
-        return accumulator;
-    }, []);
-    return result;
+interface IJsonErrors {
+    [key: string]: string | number;
+    value: string | number;
 }
 
-export const getAllListItems = (data:any) => {
-    const result = data.reduce((accumulator:any, current:any) => {
-        const [item] = current.slice(2);
-        accumulator.push(item)        
-        return accumulator;
-    }, []);
-    return result;
-}
-
-export const sortItems = (data:any) => {
-    const result = data.sort((a:any,b:any) => {
-        return a.localeCompare(b)
-    });
-    return result;
-}
-
-export const compareJson = (original:any, sorted:any) => {
-    var difference = diff(JSON.stringify({...sorted }), JSON.stringify({...original}))
-    if(difference !== 'false') {
-        return difference;
+const getErrorMessage = (type: MarkdownListType) => {
+    switch(type) {
+        case MarkdownListType.Headings:
+            return "Please correct the alphabetical order for these heading items"
+        case MarkdownListType.ListItems:
+        default:
+            return "Please correct the alphabetical order for these list items"
     }
 }
-
-export const formatHeadingErrors = (errors:any): IMarkdownListLinterErrors => {
-    const jsonErrors = JSON.parse(errors)    
-    var builder = '';
-    Object.keys(jsonErrors).reduce((accumulator, curr) => {
-        const added = accumulator.find(e => e === curr);
-        // @ts-ignore
-        !added ? accumulator.push(curr) : false;        
-
-        if(accumulator[accumulator.length-2]) {
-            const lastElement = accumulator[accumulator.length-2]
-            // @ts-ignore
-            if(curr - lastElement > 1) {
-                builder += SECTION_SEPARATOR
-            }
-        }
-        builder += jsonErrors[curr] += ITEM_SEPARATOR
+  
+export const getAllHeadings = (dataset: RegExpMatchArray[]) => {
+    return dataset.reduce((accumulator: string[], current) => {
+        const [title] = current.slice(1)
+        const isAdded = accumulator.find(e => e === title)
+        !isAdded ? accumulator.push(title) : undefined     
         return accumulator
-    }, [])    
-
-    return {
-        type: MarkdownListType.Headings,
-        message: "Please correct the alphabetical order for these heading items",
-        details: builder.split(SECTION_SEPARATOR).map(function(x){
-            return x.slice(0,-1).split(ITEM_SEPARATOR)
-        })
-    };
+    }, [])
 }
 
+export const getAllListItems = (dataset: RegExpMatchArray[]) => {
+    return dataset.reduce((accumulator: string[], current) => {
+        const [listItem] = current.slice(2)
+        accumulator.push(listItem)        
+        return accumulator
+    }, []);
+}
 
-export const formatListItemErrors = (errors:any): IMarkdownListLinterErrors => {
-    const jsonErrors = JSON.parse(errors)
-    var builder = '';
-    Object.keys(jsonErrors).reduce((accumulator, curr) => {
-        const added = accumulator.find(e => e === curr);
-        // @ts-ignore
-        !added ? accumulator.push(curr) : false;        
+export const sortItemsAlphabetically = (items: string[]) => {
+    return items.sort((a, b) => {
+        return a.localeCompare(b)
+    })
+}
 
-        if(accumulator[accumulator.length-2]) {
-            const lastElement = accumulator[accumulator.length-2]
-            // @ts-ignore
-            if(curr - lastElement > 1) {
-                builder += SECTION_SEPARATOR
+export const compareJson = (original: string[], sorted: string[]): string | undefined => {
+    const diffCheckResult = diff(JSON.stringify({...sorted }), JSON.stringify({...original}))
+    return diffCheckResult === DIFF_CHECK_NO_CHANGE ? undefined : diffCheckResult
+}
+
+export const constructErrorObject = (errors: string, type: MarkdownListType): IMarkdownListLinterErrors => {
+    let errorBuilder = ''
+    const errorsInJson: IJsonErrors = JSON.parse(errors)
+
+    Object.keys(errorsInJson).reduce((accumulator: string[], current: string) => {
+        const isAdded = accumulator.find(e => e === current)
+        const previousElement = accumulator[accumulator.length-1]
+        !isAdded ? accumulator.push(current) : undefined;
+
+        if(previousElement) {
+            if(Number(current) - Number(previousElement) > 1) {
+                errorBuilder += SECTION_SEPARATOR
             }
         }
-        builder += jsonErrors[curr] += ITEM_SEPARATOR
+        errorBuilder += errorsInJson[current] += ITEM_SEPARATOR
         return accumulator
     }, [])    
-    
+
     return {
-        type: MarkdownListType.ListItems,
-        message: "Please correct the alphabetical order for these list items",
-        details: builder.split(SECTION_SEPARATOR).map(function(x){
-            return x.slice(0,-1).split(ITEM_SEPARATOR)
+        type,
+        message: getErrorMessage(type),
+        details: errorBuilder.split(SECTION_SEPARATOR).map(function(errorItems){
+            return errorItems.split(ITEM_SEPARATOR).filter(item => item);
         })
     };
 }
