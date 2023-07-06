@@ -1,7 +1,7 @@
 # Animals
 A simple list of correctly ordered animals
 
-## C
+## A
 - [Aardvark]('https://www.Aardvark.com')
 - [Aardwolf]('https://www.Aardwolf.com')
 - [African Buffalo]('https://www.AfricanBuffalo.com')
@@ -13,13 +13,13 @@ A simple list of correctly ordered animals
 - [Badger]('https://www.Badger.com')
 - [Bald Eagle]('https://www.BaldEagle.com')
 
-## D
+## C
 - [Camel]('https://www.Camel.com')
 - [Canary]('https://www.Canary.com')
 - [Canid]('https://www.Canid.com')
 - [Canidae]('https://www.Canidae.com')
 
-## A
+## D
 - [Damselfly]('https://www.Damselfly.com')
 - [Deer]('https://www.Deer.com')
 - [Dingo]('https://www.Dingo.com')
