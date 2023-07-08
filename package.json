@@ -1,6 +1,6 @@
 {
     "name": "markdown-list-linter",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "Lint markdown lists to warn when list items are not alphabetically ordered",
     "main": "./lib/markdown-list-linter.min.js",
     "types": "./lib/markdown-list-linter.d.ts",
@@ -21,7 +21,18 @@
         "url": "git+https://github.com/ClydeDz/markdown-list-linter-npm.git"
     },
     "keywords": [
-        "markdown"
+        "markdown",
+        "markdown npm",
+        "markdown library",
+        "markdown linter",
+        "markdown lists",
+        "markdown list linter",
+        "alphabetically order markdown list",
+        "sort markdown lists",
+        "order markdown lists",
+        "library to order markdown list",
+        "library to sort markdown list",
+        "library to alphabetically sort markdown list"
     ],
     "author": "Clyde D'Souza",
     "license": "MIT",
