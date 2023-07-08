@@ -37,13 +37,9 @@ export const lintMarkdownList = (
   const listItemErrors = compareJson(listItems, sortedListItems);
   listItemErrors ? errors.push(constructErrorObject(listItemErrors, MarkdownListType.ListItems)) : false;
 
-  if (errors.length < 1) {
-    return {
-      summary: "No errors found",
-    };
-  }
-
-  const markdownListLinterResponse: IMarkdownListLinter = {
+  const markdownListLinterResponse: IMarkdownListLinter = errors.length < 1 ? {
+    summary: "No errors found",
+  } : {
     summary: "Markdown list needs to be sorted",
     errorObject: errors,
   };
