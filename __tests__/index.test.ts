@@ -9,7 +9,7 @@ describe('lintMarkdownList()', () => {
         ])('given file %s is passed', (markdownFile: string) => {
             it('should return with no errors', () => {
                 const actual = lintMarkdownList(markdownFile)
-                expect(actual).toMatchObject({ 'summary': 'No errors found'})
+                expect(actual).toMatchObject({ 'summary': 'No errors found', 'formattedMessage': 'SUMMARY:\nNo errors found\n'})
             })
         })
     })
@@ -28,9 +28,30 @@ describe('lintMarkdownList()', () => {
                             'message': 'Please correct the alphabetical order for these heading items',                        
                             'details': [['C'], ['D', 'A']],
                         }
-                    ]}
+                    ],
+                }
                 const actual = lintMarkdownList(markdownFile)
                 expect(actual).toMatchObject(expected);
+            })
+
+            it('should return correct formatted message', () => {
+                const expected = [
+                    'SUMMARY:',
+                    'Markdown list needs to be sorted',
+                    '',
+                    'DETAILS:',
+                    'Please correct the alphabetical order for these heading items',
+                    '\tSection #1',
+                    '\t\tC',
+                    '',
+                    '\tSection #2',
+                    '\t\tD',
+                    '\t\tA',
+                    '',
+                    ''
+                  ]
+                const actual = lintMarkdownList(markdownFile)
+                expect(actual.formattedMessage?.split('\n')).toMatchObject(expected);
             })
         })
     })
@@ -49,11 +70,47 @@ describe('lintMarkdownList()', () => {
                 `[Canary]('https://www.Canary.com')`
             ]
         ]
+        const correctFormattedMessageCommonHeaders = [
+            'SUMMARY:',
+            'Markdown list needs to be sorted',
+            '',
+            'DETAILS:',
+          ]
+        const correctFormattedMessageForSimpleList = [
+            ...correctFormattedMessageCommonHeaders,
+            'Please correct the alphabetical order for these list items',
+            '\tSection #1',
+            '\t\tAfrican Buffalo',
+            '\t\tAardwolf',
+            '',
+            '\tSection #2',
+            '\t\tChameleon',
+            '\t\tCamel',
+            '\t\tCheetah',
+            '\t\tCanary',
+            '',
+            ''
+          ]
+        const correctFormattedMessageForLinkedList = [
+            ...correctFormattedMessageCommonHeaders,
+            'Please correct the alphabetical order for these list items',
+            '\tSection #1',
+            `\t\t[African Buffalo]('https://www.AfricanBuffalo.com')`,
+            `\t\t[Aardwolf]('https://www.Aardwolf.com')`,
+            '',
+            '\tSection #2',
+            `\t\t[Chameleon]('https://www.Chameleon.com')`,
+            `\t\t[Camel]('https://www.Camel.com')`,
+            `\t\t[Cheetah]('https://www.Cheetah.com')`,
+            `\t\t[Canary]('https://www.Canary.com')`,
+            '',
+            ''
+          ]
 
         describe.each([
-            [Files.SimpleLists.UnorderedLists, correctOrderForSimpleList],
-            [Files.LinkedLists.UnorderedLists, correctOrderForLinkedList],
-        ])('given file %s is passed', (markdownFile: string, correctOrder: string[][]) => {
+            [Files.SimpleLists.UnorderedLists, correctOrderForSimpleList, correctFormattedMessageForSimpleList],
+            [Files.LinkedLists.UnorderedLists, correctOrderForLinkedList, correctFormattedMessageForLinkedList],
+        ])('given file %s is passed', (markdownFile: string, correctOrder: string[][], expectedFormattedMessage: string[]) => {
             it('should return with errors', () => {
                 var expected = {
                     'summary': 'Markdown list needs to be sorted', 
@@ -66,6 +123,11 @@ describe('lintMarkdownList()', () => {
                     ]}
                 const actual = lintMarkdownList(markdownFile)
                 expect(actual).toMatchObject(expected);
+            })
+
+            it('should return correct formatted message', () => {
+                const actual = lintMarkdownList(markdownFile)
+                expect(actual.formattedMessage?.split('\n')).toMatchObject(expectedFormattedMessage);
             })
         })
     })    
@@ -85,11 +147,54 @@ describe('lintMarkdownList()', () => {
                 `[Canary]('https://www.Canary.com')`
             ]
         ]
+        const correctFormattedMessageCommonHeaders = [
+            'SUMMARY:',
+            'Markdown list needs to be sorted',
+            '',
+            'DETAILS:',
+            'Please correct the alphabetical order for these heading items',
+            '\tSection #1',
+            '\t\tD',
+            '\t\tA',
+            '\t\tB',
+            '\t\tC',
+            '',
+            "Please correct the alphabetical order for these list items",
+          ]
+        const correctFormattedMessageForSimpleList = [
+            ...correctFormattedMessageCommonHeaders,            
+            '\tSection #1',
+            '\t\tAfrican Buffalo',
+            '\t\tAardwolf',
+            '',
+            '\tSection #2',
+            '\t\tChameleon',
+            '\t\tCamel',
+            '\t\tCheetah',
+            '\t\tCanary',
+            '',
+            '',
+          ]
+        const correctFormattedMessageForLinkedList = [
+            ...correctFormattedMessageCommonHeaders,
+            '\tSection #1',
+            `\t\t[African Buffalo]('https://www.AfricanBuffalo.com')`,
+            `\t\t[Aardwolf]('https://www.Aardwolf.com')`,
+            '',
+            '\tSection #2',
+            `\t\t[Chameleon]('https://www.Chameleon.com')`,
+            `\t\t[Camel]('https://www.Camel.com')`,
+            `\t\t[Cheetah]('https://www.Cheetah.com')`,
+            `\t\t[Canary]('https://www.Canary.com')`,
+            '',
+            '',
+          ]
+        const avc = ['']
 
         describe.each([
-            [Files.SimpleLists.UnorderedListsAndHeadings, correctHeadingsOrder, correctListOrderForSimpleList],
-            [Files.LinkedLists.UnorderedListsAndHeadings, correctHeadingsOrder, correctListOrderForLinkedList],
-        ])('given file %s is passed', (markdownFile: string, correctHeadingsOrder: string[][], correctListOrder: string[][]) => {
+            [Files.SimpleLists.UnorderedListsAndHeadings, correctHeadingsOrder, correctListOrderForSimpleList, correctFormattedMessageForSimpleList],
+            [Files.LinkedLists.UnorderedListsAndHeadings, correctHeadingsOrder, correctListOrderForLinkedList, correctFormattedMessageForLinkedList],
+        ])('given file %s is passed', (markdownFile: string, correctHeadingsOrder: string[][], correctListOrder: string[][], expectedFormattedMessage: string[]) => {
             it('should return with errors', () => {
                 var expected = {
                     'summary': 'Markdown list needs to be sorted', 
@@ -107,6 +212,11 @@ describe('lintMarkdownList()', () => {
                     ]}
                 const actual = lintMarkdownList(markdownFile)
                 expect(actual).toMatchObject(expected);
+            })
+
+            it('should return correct formatted message', () => {
+                const actual = lintMarkdownList(markdownFile)
+                expect(actual.formattedMessage?.split('\n')).toMatchObject(expectedFormattedMessage);
             })
         })
     })    
