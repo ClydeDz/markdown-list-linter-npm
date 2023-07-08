@@ -1,6 +1,7 @@
 export interface IMarkdownListLinter {
     summary: string;
     errorObject?: IMarkdownListLinterErrors[];
+    formattedMessage?: string;
   }
   
 export interface IMarkdownListLinterErrors {

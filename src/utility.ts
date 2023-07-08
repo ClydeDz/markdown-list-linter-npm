@@ -1,4 +1,4 @@
-import { IMarkdownListLinterErrors, MarkdownListType } from "./interface"
+import { IMarkdownListLinter, IMarkdownListLinterErrors, MarkdownListType } from "./interface"
 var diff = require('json-differ')
 
 const SECTION_SEPARATOR = '&&SECTION_SEPARATOR&&'
@@ -73,4 +73,25 @@ export const constructErrorObject = (errors: string, type: MarkdownListType): IM
             return errorItems.split(ITEM_SEPARATOR).filter(item => item);
         })
     };
+}
+
+export const buildFormattedMessage = (result: IMarkdownListLinter) => {
+    let outputBuilder = ''  
+    outputBuilder += 'SUMMARY:\n' + result.summary + '\n'  
+    result.errorObject ? outputBuilder += '\nDETAILS:\n' : undefined
+
+    result.errorObject?.forEach(error => {
+        outputBuilder += error.message + '\n'
+        
+        error.details.forEach((errorSections, index) => {      
+        outputBuilder +=  '\tSection #' + (index + 1) + '\n'
+
+        errorSections.forEach(errorItem => {
+            outputBuilder +=  '\t\t' + errorItem + '\n'
+        })
+
+        outputBuilder += '\n'
+        })
+    })
+    return outputBuilder;
 }

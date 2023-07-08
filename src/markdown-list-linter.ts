@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import {
+  buildFormattedMessage,
   compareJson,
   constructErrorObject,
   getAllHeadings,
@@ -42,8 +43,15 @@ export const lintMarkdownList = (
     };
   }
 
-  return {
+  const markdownListLinterResponse: IMarkdownListLinter = {
     summary: "Markdown list needs to be sorted",
     errorObject: errors,
   };
+
+  const formattedMessage = buildFormattedMessage(markdownListLinterResponse)
+
+  return {
+    ...markdownListLinterResponse,
+    formattedMessage,
+  }
 };
