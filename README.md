@@ -31,15 +31,18 @@ const results = lintMarkdownList('./path/to/markdown/file.md')
 console.log(results)
 ```
 
-When there are no errors, the returned object should look something like this.
+When there are no errors, the returned object should look something like this. The property `formattedMessage` is supplied if you need to print the output to a terminal console.
 
-```json
-{ 'summary': 'No errors found' }
+```js
+{
+  'summary': 'No errors found',
+  'formattedMessage': 'SUMMARY:\nNo errors found\n'
+}
 ```
 
 When there are errors, the returned object should look something like this.
 
-```json
+```js
 {
   'summary': 'Markdown list needs to be sorted', 
   'errorObject': [
@@ -68,6 +71,7 @@ When there are errors, the returned object should look something like this.
           ],
       }
   ]
+  'formattedMessage': "SUMMARY:\nMarkdown list needs to be sorted\n\nDETAILS:\nPlease correct the alphabetical order for these heading items\n\tSection #1\n\t\tD\n\t\tA\n\t\tB\n\t\tC\n\nPlease correct the alphabetical order for these list items\n\tSection #1\n\t\t[African Buffalo]('https://www.AfricanBuffalo.com')\n\t\t[Aardwolf]('https://www.Aardwolf.com')\n\n\tSection #2\n\t\t[Chameleon]('https://www.Chameleon.com')\n\t\t[Camel]('https://www.Camel.com')\n\t\t[Cheetah]('https://www.Cheetah.com')\n\t\t[Canary]('https://www.Canary.com')\n\n"
 }
 ```
 
