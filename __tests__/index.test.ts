@@ -189,7 +189,6 @@ describe('lintMarkdownList()', () => {
             '',
             '',
           ]
-        const avc = ['']
 
         describe.each([
             [Files.SimpleLists.UnorderedListsAndHeadings, correctHeadingsOrder, correctListOrderForSimpleList, correctFormattedMessageForSimpleList],
