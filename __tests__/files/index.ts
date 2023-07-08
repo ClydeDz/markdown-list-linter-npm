@@ -5,14 +5,14 @@ const SimpleListFiles  = {
     ValidFile: `${SIMPLE_LISTS_FILES_PREFIX}valid_file.md`,
     UnorderedHeadings: `${SIMPLE_LISTS_FILES_PREFIX}unordered_headings.md`,
     UnorderedLists: `${SIMPLE_LISTS_FILES_PREFIX}unordered_lists.md`,
-    A: `${SIMPLE_LISTS_FILES_PREFIX}unordered_lists_and_headings.md`,
+    UnorderedListsAndHeadings: `${SIMPLE_LISTS_FILES_PREFIX}unordered_lists_and_headings.md`,
 }
 
 const LinkedListFiles = {
     ValidFile: `${LINKED_LISTS_FILES_PREFIX}valid_file.md`,
     UnorderedHeadings: `${LINKED_LISTS_FILES_PREFIX}unordered_headings.md`,
     UnorderedLists: `${LINKED_LISTS_FILES_PREFIX}unordered_lists.md`,
-    A: `${LINKED_LISTS_FILES_PREFIX}unordered_lists_and_headings.md`,
+    UnorderedListsAndHeadings: `${LINKED_LISTS_FILES_PREFIX}unordered_lists_and_headings.md`,
 }
 
 export const Files = {
