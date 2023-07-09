@@ -1,6 +1,6 @@
 {
   "name": "markdown-list-linter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lint markdown lists to warn when list items are not alphabetically ordered",
   "main": "./lib/markdown-list-linter.min.js",
   "types": "./lib/markdown-list-linter.d.ts",
