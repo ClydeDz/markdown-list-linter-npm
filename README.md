@@ -6,11 +6,11 @@ Lints markdown lists and warn when list items are not alphabetically ordered.
 
 This functionality is available to be consumed in three different ways:
 
-* ⚡ [A GitHub Action](https://github.com/marketplace/actions/markdown-list-linter) as part of your CI/CD process
+- ⚡ [A GitHub Action](https://github.com/marketplace/actions/markdown-list-linter) as part of your CI/CD process
 
-* 📦 [An NPM package](https://www.npmjs.com/package/markdown-list-linter) that can be consumed in your JavaScript or TypeScript code
+- 📦 [An NPM package](https://www.npmjs.com/package/markdown-list-linter) that can be consumed in your JavaScript or TypeScript code
 
-* 💻 [A CLI](https://www.npmjs.com/package/markdown-list-linter-cli) that you can run in your terminal
+- 💻 [A CLI](https://www.npmjs.com/package/markdown-list-linter-cli) that you can run in your terminal
 
 ## Installation
 
@@ -44,11 +44,11 @@ When there are errors, the returned object should look something like this.
 
 ```js
 {
-  'summary': 'Markdown list needs to be sorted', 
+  'summary': 'Markdown list needs to be sorted',
   'errorObject': [
       {
           'type': 'HEADINGS',
-          'message': 'Please correct the alphabetical order for these heading items',                        
+          'message': 'Please correct the alphabetical order for these heading items',
           'details': [
             ['C'],
             ['D', 'A']
@@ -75,4 +75,4 @@ When there are errors, the returned object should look something like this.
 }
 ```
 
-The array items in the `details` object is sections in the list which need to be reordered. 
+The array items in the `details` object is sections in the list which need to be reordered.

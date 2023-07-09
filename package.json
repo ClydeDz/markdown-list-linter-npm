@@ -1,55 +1,58 @@
 {
-    "name": "markdown-list-linter",
-    "version": "0.1.0",
-    "description": "Lint markdown lists to warn when list items are not alphabetically ordered",
-    "main": "./lib/markdown-list-linter.min.js",
-    "types": "./lib/markdown-list-linter.d.ts",
-    "scripts": {
-        "compile": "tsc --project tsconfig.json",
-        "minify": "esbuild \"lib/markdown-list-linter.js\" --minify --bundle --platform=node --outdir=lib --out-extension:.js=.min.js",
-        "build": "npm run compile && npm run minify",   
-        "test": "jest"
-    },
-    "files": [
-        "lib/**/*.min.js",
-        "lib/**/*.d.ts",
-        "LICENSE",
-        "README.md"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/ClydeDz/markdown-list-linter-npm.git"
-    },
-    "keywords": [
-        "markdown",
-        "markdown npm",
-        "markdown library",
-        "markdown linter",
-        "markdown lists",
-        "markdown list linter",
-        "alphabetically order markdown list",
-        "sort markdown lists",
-        "order markdown lists",
-        "library to order markdown list",
-        "library to sort markdown list",
-        "library to alphabetically sort markdown list"
-    ],
-    "author": "Clyde D'Souza",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/ClydeDz/markdown-list-linter-npm/issues"
-    },
-    "homepage": "https://github.com/ClydeDz/markdown-list-linter-npm#readme",
-    "devDependencies": {
-        "@types/jest": "^29.5.2",
-        "@types/node": "^20.3.3",
-        "esbuild": "^0.18.11",
-        "jest": "^29.5.0",
-        "ts-jest": "^29.1.1",
-        "typescript": "^5.1.6"
-    },
-    "dependencies": {
-        "fs": "^0.0.1-security",
-        "json-differ": "^1.0.0"
-    }
+  "name": "markdown-list-linter",
+  "version": "0.1.0",
+  "description": "Lint markdown lists to warn when list items are not alphabetically ordered",
+  "main": "./lib/markdown-list-linter.min.js",
+  "types": "./lib/markdown-list-linter.d.ts",
+  "scripts": {
+    "pretty": "prettier --check .",
+    "pretty:fix": "prettier --write .",
+    "compile": "tsc --project tsconfig.json",
+    "minify": "esbuild \"lib/markdown-list-linter.js\" --minify --bundle --platform=node --outdir=lib --out-extension:.js=.min.js",
+    "build": "npm run compile && npm run minify",
+    "test": "jest"
+  },
+  "files": [
+    "lib/**/*.min.js",
+    "lib/**/*.d.ts",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClydeDz/markdown-list-linter-npm.git"
+  },
+  "keywords": [
+    "markdown",
+    "markdown npm",
+    "markdown library",
+    "markdown linter",
+    "markdown lists",
+    "markdown list linter",
+    "alphabetically order markdown list",
+    "sort markdown lists",
+    "order markdown lists",
+    "library to order markdown list",
+    "library to sort markdown list",
+    "library to alphabetically sort markdown list"
+  ],
+  "author": "Clyde D'Souza",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ClydeDz/markdown-list-linter-npm/issues"
+  },
+  "homepage": "https://github.com/ClydeDz/markdown-list-linter-npm#readme",
+  "devDependencies": {
+    "@types/jest": "^29.5.2",
+    "@types/node": "^20.3.3",
+    "esbuild": "^0.18.11",
+    "jest": "^29.5.0",
+    "prettier": "^3.0.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "json-differ": "^1.0.0"
+  }
 }
