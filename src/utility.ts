@@ -3,7 +3,8 @@ import {
   IMarkdownListLinterErrors,
   MarkdownListType,
 } from './interface'
-var diff = require('json-differ')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const diff = require('json-differ')
 
 const SECTION_SEPARATOR = '&&SECTION_SEPARATOR&&'
 const ITEM_SEPARATOR = '&&ITEM_SEPARATOR&&'

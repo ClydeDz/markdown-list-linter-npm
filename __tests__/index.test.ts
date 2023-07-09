@@ -23,7 +23,7 @@ describe('lintMarkdownList()', () => {
       Files.LinkedLists.UnorderedHeadings,
     ])('given file %s is passed', (markdownFile: string) => {
       it('should return with errors', () => {
-        var expected = {
+        const expected = {
           summary: 'Markdown list needs to be sorted',
           errorObject: [
             {
@@ -133,7 +133,7 @@ describe('lintMarkdownList()', () => {
         expectedFormattedMessage: string[]
       ) => {
         it('should return with errors', () => {
-          var expected = {
+          const expected = {
             summary: 'Markdown list needs to be sorted',
             errorObject: [
               {
@@ -241,7 +241,7 @@ describe('lintMarkdownList()', () => {
         expectedFormattedMessage: string[]
       ) => {
         it('should return with errors', () => {
-          var expected = {
+          const expected = {
             summary: 'Markdown list needs to be sorted',
             errorObject: [
               {
@@ -277,6 +277,7 @@ describe('lintMarkdownList()', () => {
       expect.assertions(1)
       try {
         lintMarkdownList('./this_file_does_not_exist.md')
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (e: any) {
         expect(e.message).toBe(
           "ENOENT: no such file or directory, open './this_file_does_not_exist.md'"
