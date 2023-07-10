@@ -1,6 +1,6 @@
 # Animals
 
-A simple list of correctly ordered animals
+A simple linked list of unordered list items.
 
 ## A
 
